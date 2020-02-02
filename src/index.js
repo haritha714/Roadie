@@ -162,7 +162,7 @@ class ModelApp extends React.Component {
         var review ={
             reviewedBy: this.state.reviewedBy,
             revieweTitle:this.state.revieweTitle,
-            ratingScore: (this.state.ratingScore ? this.state.ratingScore : 1),
+            ratingScore: (this.state.ratingScore ? parseInt(this.state.ratingScore) : 1),
             revieweDesc:this.state.revieweDesc,
             reviewedDate: new Date().toLocaleString()
         };
