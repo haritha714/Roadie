@@ -327,6 +327,7 @@ class ModelApp extends React.Component {
                                 className="btn btn-primary btn-space"
                                 onClick={this.openModal}
                             >
+            <br><br>
                                 LEAVE REVIEW
          </button>
                             <button type="button" className="btn btn-primary btn-space">
