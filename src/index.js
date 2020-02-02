@@ -29,6 +29,12 @@ class ModelApp extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescChange = this.handleDescChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.refreshListFiveStar = this.refreshListFiveStar.bind(this);
+        this.refreshListFourStar = this.refreshListFourStar.bind(this);
+        this.refreshListThreeStar = this.refreshListThreeStar.bind(this);
+        this.refreshListTwoStar = this.refreshListTwoStar.bind(this);
+        this.refreshListOneStar = this.refreshListOneStar.bind(this);
+
         this.reviewsCount = 4;
         this.averageRatingScore = 4;
         this.state = {
@@ -37,7 +43,8 @@ class ModelApp extends React.Component {
             revieweTitle:'',
             ratingScore: '',
             revieweDesc:'',
-            reviewedDate :''
+            reviewedDate :'',
+            listToShow : -1
         };
 
         this.reviews = [
@@ -141,6 +148,7 @@ class ModelApp extends React.Component {
 
         let averageRatingScore = (5*fiveStartIndex + 4*fourStartIndex + 3*threeStartIndex + 2*twoStartIndex + 1*oneStartIndex) / (fiveStartIndex+fourStartIndex+threeStartIndex+twoStartIndex+oneStartIndex) ;
         this.averageRatingScore =averageRatingScore.toFixed(2);
+        console.log("fiveStartIndex =" + fiveStartIndex);
         var reviewScores = {
             oneStar: (oneStartIndex / totalUsers) * 100 + "%",
             twoStar: (twoStartIndex / totalUsers) * 100 + "%",
@@ -150,6 +158,37 @@ class ModelApp extends React.Component {
         };
         return reviewScores;
     }
+
+    refreshListFiveStar(){
+       // this.getScoreInPercentage();
+       this.setState({listToShow : 5});
+        
+    }
+
+    refreshListFourStar(){
+        // this.getScoreInPercentage();
+        this.setState({listToShow : 4});
+         
+     }
+
+     refreshListThreeStar(){
+        // this.getScoreInPercentage();
+        this.setState({listToShow : 3});
+         
+     }
+
+     refreshListTwoStar(){
+        // this.getScoreInPercentage();
+        this.setState({listToShow : 2});
+         
+     }
+
+     refreshListOneStar(){
+        // this.getScoreInPercentage();
+        this.setState({listToShow : 1});
+         
+     }
+
 
     openModal() {
         this.setState({ modalIsOpen: true });
@@ -393,7 +432,7 @@ class ModelApp extends React.Component {
                     <div className="row ">
                         <div className="col-12">
                             <div className="side">
-                                <div>5 star</div>
+                                <div><button type="button" className="btn btn-link" onClick={this.refreshListFiveStar}>5 star</button></div>
                             </div>
                             <div className="middle">
                                 <div className="bar-container">
@@ -403,7 +442,7 @@ class ModelApp extends React.Component {
                         </div>
                         <div className="col-12">
                             <div className="side">
-                                <div>4 star</div>
+                            <div><button type="button" className="btn btn-link" onClick={this.refreshListFourStar}>4 star</button></div>
                             </div>
                             <div className="middle">
                                 <div className="bar-container">
@@ -413,7 +452,7 @@ class ModelApp extends React.Component {
                         </div>
                         <div className="col-12">
                             <div className="side">
-                                <div>3 star</div>
+                            <div><button type="button" className="btn btn-link" onClick={this.refreshListThreeStar}>3 star</button></div>
                             </div>
                             <div className="middle">
                                 <div className="bar-container">
@@ -423,7 +462,7 @@ class ModelApp extends React.Component {
                         </div>
                         <div className="col-12">
                             <div className="side">
-                                <div>2 star</div>
+                            <div><button type="button" className="btn btn-link" onClick={this.refreshListTwoStar}>2 star</button></div>
                             </div>
                             <div className="middle">
                                 <div className="bar-container">
@@ -433,7 +472,7 @@ class ModelApp extends React.Component {
                         </div>
                         <div className="col-12">
                             <div className="side">
-                                <div>1 star</div>
+                            <div><button type="button" className="btn btn-link" onClick={this.refreshListOneStar}>1 star</button></div>
                             </div>
                             <div className="middle">
                                 <div className="bar-container">
@@ -446,25 +485,47 @@ class ModelApp extends React.Component {
                 <div className="col-8">
                     <div className="row">
                         {this.reviews.map((review, i) => {
-                            return (
-                                <div className="col-5 rating-box" key={i}>
-                                    <span>{review.revieweTitle} </span>
-                                    <br />
-                                    <div>
-                                        <span className={review.ratingScore >= 1 ? 'fa fa-star checked' : 'fa fa-star'}></span>
-                                        <span className={review.ratingScore >= 2 ? 'fa fa-star checked' : 'fa fa-star'}></span>
-                                        <span className={review.ratingScore >= 3 ? 'fa fa-star checked' : 'fa fa-star'}></span>
-                                        <span className={review.ratingScore >= 4 ? 'fa fa-star checked' : 'fa fa-star'}></span>
-                                        <span className={review.ratingScore >= 5 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                             if(this.state.listToShow === -1){
+                                return (
+                                    <div className="col-5 rating-box" key={i}>
+                                        <span>{review.revieweTitle} </span>
+                                        <br />
+                                        <div>
+                                            <span className={review.ratingScore >= 1 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 2 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 3 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 4 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 5 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                        </div>
+                                        <span>
+                                            by {review.reviewedBy} on {review.reviewedDate}
+                                        </span>
+                                        <br />
+                                        <span>{review.revieweDesc}.</span>
                                     </div>
-                                    <span>
-                                        by {review.reviewedBy} on {review.reviewedDate}
-                                    </span>
-                                    <br />
-                                    <span>{review.revieweDesc}.</span>
-                                </div>
-                            );
+                                );
+                            }else if(this.state.listToShow === review.ratingScore){
+                                return (
+                                    <div className="col-5 rating-box" key={i}>
+                                        <span>{review.revieweTitle} </span>
+                                        <br />
+                                        <div>
+                                            <span className={review.ratingScore >= 1 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 2 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 3 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 4 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                            <span className={review.ratingScore >= 5 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                        </div>
+                                        <span>
+                                            by {review.reviewedBy} on {review.reviewedDate}
+                                        </span>
+                                        <br />
+                                        <span>{review.revieweDesc}.</span>
+                                    </div>
+                                );
+                            }
                         })}
+                    
                     </div>
                 </div>
             </div>
