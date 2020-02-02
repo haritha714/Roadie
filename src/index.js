@@ -139,8 +139,8 @@ class ModelApp extends React.Component {
             }
         }
 
-        this.averageRatingScore = (5*fiveStartIndex + 4*fourStartIndex + 3*threeStartIndex + 2*twoStartIndex + 1*oneStartIndex) / (fiveStartIndex+fourStartIndex+threeStartIndex+twoStartIndex+oneStartIndex) ;
-        console.log("fiveStartIndex =" + fiveStartIndex);
+        let averageRatingScore = (5*fiveStartIndex + 4*fourStartIndex + 3*threeStartIndex + 2*twoStartIndex + 1*oneStartIndex) / (fiveStartIndex+fourStartIndex+threeStartIndex+twoStartIndex+oneStartIndex) ;
+        this.averageRatingScore =averageRatingScore.toFixed(2);
         var reviewScores = {
             oneStar: (oneStartIndex / totalUsers) * 100 + "%",
             twoStar: (twoStartIndex / totalUsers) * 100 + "%",
