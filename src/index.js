@@ -321,6 +321,7 @@ class ModelApp extends React.Component {
                         <span>by <b>Roadie</b></span><br />
                         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span><br />
                         <span>• Duis ante irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
+                 <br><br>
                         <div className="div-float-right"></div>
                         <div className="btn-float-right">
                             <button
