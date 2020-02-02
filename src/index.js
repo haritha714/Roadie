@@ -38,7 +38,8 @@ class ModelApp extends React.Component {
             reviewedBy: '',
             revieweTitle:'',
             ratingScore: '',
-            revieweDesc:''
+            revieweDesc:'',
+            reviewedDate :''
         };
 
         this.reviews = [
@@ -163,7 +164,7 @@ class ModelApp extends React.Component {
             revieweTitle:this.state.revieweTitle,
             ratingScore: (this.state.ratingScore ? this.state.ratingScore : 1),
             revieweDesc:this.state.revieweDesc,
-            revieweDate: new Date().toLocaleString()
+            reviewedDate: new Date().toLocaleString()
         };
 
         this.reviews.push(review);
@@ -444,7 +445,7 @@ class ModelApp extends React.Component {
                                         <span className={review.ratingScore >= 5 ? 'fa fa-star checked' : 'fa fa-star'}></span>
                                     </div>
                                     <span>
-                                        by {review.reviewedBy} on {review.revieweDate}
+                                        by {review.reviewedBy} on {review.reviewedDate}
                                     </span>
                                     <br />
                                     <span>{review.revieweDesc}.</span>
