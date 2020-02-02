@@ -54,8 +54,7 @@
   /* Three column layout */
   .side {
     float: left;
-    width: 15%;
-    margin-top: 10px;
+    width: 22%;
   }
   
   .middle {
