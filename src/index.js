@@ -3,9 +3,6 @@ import ReactDOM from "react-dom";
 
 import Modal from "react-modal";
 
-import Rating from "./Rating";
-
-//import SoftwareBoxImg from './Software-Box-Mock-Up.jpg';
 
 import "./index.css";
 
@@ -32,7 +29,8 @@ class ModelApp extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescChange = this.handleDescChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
-
+        this.reviewsCount = 4;
+        this.averageRatingScore = 4;
         this.state = {
             modalIsOpen: false,
             reviewedBy: '',
@@ -103,6 +101,8 @@ class ModelApp extends React.Component {
             reviewedDate: ""
         };
 
+        
+
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.submitModal = this.submitModal.bind(this);
@@ -111,6 +111,11 @@ class ModelApp extends React.Component {
 
     getScoreInPercentage() {
         var totalUsers = this.reviews.length;
+
+        this.reviewsCount = totalUsers;
+        
+
+        console.log('totalUsers = '+totalUsers);
         var oneStartIndex = 0,
             twoStartIndex = 0,
             threeStartIndex = 0,
@@ -134,12 +139,14 @@ class ModelApp extends React.Component {
             }
         }
 
+        this.averageRatingScore = (5*fiveStartIndex + 4*fourStartIndex + 3*threeStartIndex + 2*twoStartIndex + 1*oneStartIndex) / (fiveStartIndex+fourStartIndex+threeStartIndex+twoStartIndex+oneStartIndex) ;
+        console.log("fiveStartIndex =" + fiveStartIndex);
         var reviewScores = {
             oneStar: (oneStartIndex / totalUsers) * 100 + "%",
             twoStar: (twoStartIndex / totalUsers) * 100 + "%",
             threeStar: (threeStartIndex / totalUsers) * 100 + "%",
             fourStar: (fourStartIndex / totalUsers) * 100 + "%",
-            fiveStar: (fiveStartIndex / totalUsers) * 100 + "%"
+            fiveStar: ((fiveStartIndex / totalUsers) * 100 )+ "%"
         };
         return reviewScores;
     }
@@ -373,11 +380,17 @@ class ModelApp extends React.Component {
                         <b>CUSTOMER REVIEWS</b>
                     </span>
                     <br />
-                    <span>
-                        by <b>Roadie</b>
-                    </span>
-                    <br />
-                    <div className="row">
+                    
+                    <div className="row row-pading"> 
+                    <span className={this.averageRatingScore >= 1 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                        <span className={this.averageRatingScore >= 2 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                        <span className={this.averageRatingScore >= 3 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                        <span className={this.averageRatingScore >= 4 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                        <span className={this.averageRatingScore >= 5 ? 'fa fa-star checked' : 'fa fa-star'}></span>
+                                        <span>&nbsp;&nbsp;{this.averageRatingScore} out of 5</span>
+                                        </div>
+                                        <div className="row row-pading">{this.reviewsCount} reviews</div>
+                    <div className="row ">
                         <div className="col-12">
                             <div className="side">
                                 <div>5 star</div>
